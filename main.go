@@ -3,8 +3,10 @@ package main
 import (
 	"crypto/rand"
 	"fmt"
+	"log"
 	"math"
 	"math/big"
+	"time"
 )
 
 var Keys [][]byte
@@ -81,15 +83,13 @@ func GenerateRandomBytes(n int) ([]byte, error) {
 }
 
 func BootForce(key []byte) {
-
-	for _, v := range Keys {
-		if key[0] == v[0] {
-
-			fmt.Println("It is your key", v)
-		} else {
-			key[0]++
+	start := time.Now()
+	duration := time.Since(start)
+	for i, n := range Keys {
+		if key[i] == n[i] {
+			fmt.Println("It is your key", n)
+			log.Print(duration)
 		}
-
 	}
 
 }
